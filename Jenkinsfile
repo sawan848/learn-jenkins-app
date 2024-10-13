@@ -3,8 +3,22 @@ pipeline{
      
      stages{
          stage('with  react Test') {
+            agent{
+                docker{
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
              steps{
-                echo "Hello world from jenkins react "
+                sh '''
+                    ls -la 
+                    node --version 
+                    npm --version
+                    npm ci
+                    npm run build 
+                    ls -la 
+
+                '''
              }
          }
         
